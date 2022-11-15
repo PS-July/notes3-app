@@ -1,0 +1,28 @@
+.noteNew {
+    background-color: aquamarine;
+
+}
+
+textarea {
+    border: none;
+    resize: none;
+    background-color: aquamarine;
+
+}
+
+textarea:focus {
+    outline: none;
+}
+
+.save{
+    background-color: #e1e1e1;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.save:hover {
+    background-color:rgb(56, 180, 56);
+    cursor: pointer;
+    color: white;
+}
