@@ -37,11 +37,6 @@ const App = () => {
     setNotes(newNotes);
   };
 
-  // State
-  const [apiData, setApiData] = useState({});
-  const [getState, setGetState] = useState("");
-  const [state, setState] = useState("");
-
   return (
     //if darkmode = true then add the classs darkMode
     <div className={`${darkMode && "darkMode"}`}>
