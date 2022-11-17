@@ -1,6 +1,6 @@
 {
   "short_name": "Notetaking App",
-  "name": "Create React App Sample",
+  "name": "A Notetaking App on Azure",
   "icons": [
     {
       "src": "favicon.ico",
