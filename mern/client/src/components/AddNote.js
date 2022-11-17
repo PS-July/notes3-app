@@ -39,22 +39,17 @@ const AddNote = ({ handleAddNote }) => {
     });
   };
 
-  return (
-    <div className={`${classes.note} ${styles.noteNew}`}>
-      <textarea
-        rows="8"
-        cols="10"
-        placeholder="Type to add a note..."
-        value={noteText}
-        onChange={changeHandler}
-      ></textarea>
-      <div className={classes.footer}>
-        <small>{characterLimit - noteText.length} remaning</small>
-        <button className={styles.save} onClick={saveHandler}>
-          Save
-        </button>
-      </div>
-    </div>
-  );
-};
+    return (
+        <div className={`${classes.note} ${styles.noteNew}`}>
+            <textarea rows="8" cols="10" placeholder="Type to add a note..."
+                value={noteText} onChange={changeHandler}
+            >
+            </textarea>
+            <div className={classes.footer}>
+                <small>{characterLimit-noteText.length} remaining</small>
+                <button className={styles.save} onClick={saveHandler}>Save</button>
+            </div>
+        </div>
+    )
+}
 export default AddNote;
