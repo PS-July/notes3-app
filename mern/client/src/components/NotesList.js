@@ -9,8 +9,8 @@ const NotesList = ({
   return (
     <div className={classes.notesList}>
       {notes.map(note => (<Note
-        key={note.id}
-        id={note.id}
+        key={note._id}
+        id={note._id}
         text={note.text}
         date={note.date}
         handleDeleteNote={handleDeleteNote} />
@@ -21,6 +21,6 @@ const NotesList = ({
     </div>
   );
 
-
+ 
 };
 export default NotesList;

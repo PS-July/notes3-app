@@ -12,17 +12,17 @@ const dbo = require("../db/conn");
 const ObjectId = require("mongodb").ObjectId;
  
  
-// This section will help you get a list of all the records.
-// noteRoutes.route("/note").get(function (req, res) {
-//  let db_connect = dbo.getDb("notes");
-//  db_connect
-//    .collection("angela-notets")
-//    .find({})
-//    .toArray(function (err, result) {
-//      if (err) throw err;
-//      res.json(result);
-//    });
-// });
+//This section will help you get a list of all the records.
+noteRoutes.route("/note").get(function (req, res) {
+ let db_connect = dbo.getDb("notes");
+ db_connect
+   .collection("angela-notets")
+   .find({})
+   .toArray(function (err, result) {
+     if (err) throw err;
+     res.json(result);
+   });
+});
  
 // This section will help you get a single record by id
 // noteRoutes.route("/note/:id").get(function (req, res) {
@@ -39,12 +39,13 @@ const ObjectId = require("mongodb").ObjectId;
 // This section will help you create a new record.
 noteRoutes.route("/note/add").post(function (req, response) {
  let db_connect = dbo.getDb();
- console.log("here");
  let myobj = {
-   text: req.body,
+   text: req.body.text,
+   date: req.body.date
  };
  db_connect.collection("angela-notets").insertOne(myobj, function (err, res) {
    if (err) throw err;
+   console.log("1 document added to database collection");
    response.json(res);
  });
 });
@@ -70,14 +71,14 @@ noteRoutes.route("/note/add").post(function (req, response) {
 // });
  
 // This section will help you delete a record
-// noteRoutes.route("/:id").delete((req, response) => {
-//  let db_connect = dbo.getDb();
-//  let myquery = { _id: ObjectId(req.params.id) };
-//  db_connect.collection("angela-notets").deleteOne(myquery, function (err, obj) {
-//    if (err) throw err;
-//    console.log("1 document deleted");
-//    response.json(obj);
-//  });
-// });
+noteRoutes.route("/:id").delete((req, response) => {
+ let db_connect = dbo.getDb();
+ let myquery = { _id: ObjectId(req.params.id) };
+ db_connect.collection("angela-notets").deleteOne(myquery, function (err, obj) {
+   if (err) throw err;
+   console.log("1 document deleted");
+   response.json(obj);
+ });
+});
  
 module.exports = noteRoutes;

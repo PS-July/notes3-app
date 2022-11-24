@@ -1,7 +1,9 @@
 import classes from "./css/Note.module.css";
 import styles from "./css/AddNotes.module.css";
-import {nanoid} from 'nanoid';
 import { useState } from "react";
+
+const current = new Date(); 
+const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
 
 const AddNote = ({ handleAddNote }) => {
   const [noteText, setNoteText] = useState("");
@@ -21,17 +23,16 @@ const AddNote = ({ handleAddNote }) => {
       console.log(noteText);
       setNoteText("");
     }
-    var data = [{
-        "id": nanoid(),
-        "date": "02/02/2022",
-        "text": noteText
-    }]
+    
     await fetch("http://localhost:5000/note/add" , {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        date: date,
+        text: noteText
+      }),
     }).catch((error) => {
       console.log(error);
       window.alert(error);

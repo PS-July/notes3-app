@@ -9,16 +9,27 @@ const App = () => {
   const [searchText, setSearchText] = useState("");
   const [darkMode, setDarkMode] = useState(false);
 
-  useEffect(() => {
-    const savedNotes = JSON.parse(localStorage.getItem("items"));
-    if (savedNotes) {
-      setNotes(savedNotes);
-    }
-  }, []);
 
+  // This method fetches the records from the database.
   useEffect(() => {
-    localStorage.setItem("items", JSON.stringify(notes));
-  }, [notes]);
+    async function getNotes() {
+      const response = await fetch(`http://localhost:5000/note/`);
+
+      if (!response.ok) {
+        const message = `An error occurred: ${response.statusText}`;
+        window.alert(message);
+        return;
+      }
+
+      const notes = await response.json();
+      setNotes(notes);
+    }
+
+    getNotes();
+
+    return;
+  }, [notes.length]);
+
 
   const addNote = (text) => {
     const date = new Date();
@@ -31,9 +42,13 @@ const App = () => {
     setNotes(newNotes);
   };
 
-  const deleteNote = (id) => {
+  const deleteNote = async (id) => {
     //returns a new array without the note that has the passed in id
-    const newNotes = notes.filter((note) => note.id !== id);
+    await fetch(`http://localhost:5000/${id}`, {
+      method: "DELETE"
+    });
+
+    const newNotes = notes.filter((el) => el._id !== id);
     setNotes(newNotes);
   };
 
@@ -44,14 +59,15 @@ const App = () => {
         <Header toggleDarkModeHandler={setDarkMode} />
         <Search searchHandler={setSearchText} />
         <NotesList
-          notes={notes.filter((note) =>
-            note.text.toLowerCase().includes(searchText)
-          )}
+          notes={
+            notes
+            //notes.filter((note) => note.text.toLowerCase().includes(searchText))
+          }
           handleAddNote={addNote}
           handleDeleteNote={deleteNote}
         />
       </div>
-      
+
     </div>
   );
 };
